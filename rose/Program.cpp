@@ -12,13 +12,13 @@ using namespace winrt;
 
 int main()
 {
-    // You can get parsed command-line arguments from the CRT globals.
-    wprintf(L"Parsed command-line arguments:\n");
-    for (int i = 0; i < __argc; i++)
-    {
-        wprintf(L"__argv[%d] = %S\n", i, __argv[i]);
-    }
+    wprintf(L"\nrose :: console notification utility for windows\n\n");
+    //for (int i = 0; i < __argc; i++)
+    //{
+    //    wprintf(L"__argv[%d] = %S\n", i, __argv[i]);
+    //}
 
-    wprintf(L"Press Enter to continue:");
-    getchar();
+    
+
+	return 0;
 }
