@@ -195,6 +195,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="packages.config" />
     <None Include="rose_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -262,5 +263,16 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\Microsoft.Toolkit.Uwp.Notifications.5.1.1\build\native\Microsoft.Toolkit.Uwp.Notifications.targets" Condition="Exists('..\packages\Microsoft.Toolkit.Uwp.Notifications.5.1.1\build\native\Microsoft.Toolkit.Uwp.Notifications.targets')" />
+    <Import Project="..\packages\tinyxml2.redist.3.0.0\build\native\tinyxml2.redist.targets" Condition="Exists('..\packages\tinyxml2.redist.3.0.0\build\native\tinyxml2.redist.targets')" />
+    <Import Project="..\packages\tinyxml2.3.0.0\build\native\tinyxml2.targets" Condition="Exists('..\packages\tinyxml2.3.0.0\build\native\tinyxml2.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Toolkit.Uwp.Notifications.5.1.1\build\native\Microsoft.Toolkit.Uwp.Notifications.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Toolkit.Uwp.Notifications.5.1.1\build\native\Microsoft.Toolkit.Uwp.Notifications.targets'))" />
+    <Error Condition="!Exists('..\packages\tinyxml2.redist.3.0.0\build\native\tinyxml2.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\tinyxml2.redist.3.0.0\build\native\tinyxml2.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\tinyxml2.3.0.0\build\native\tinyxml2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\tinyxml2.3.0.0\build\native\tinyxml2.targets'))" />
+  </Target>
 </Project>
