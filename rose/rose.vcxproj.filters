@@ -155,6 +155,18 @@
     <Image Include="Assets\StoreLogo.scale-400.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\BadgeLogo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\BadgeLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\BadgeLogo.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square50x50Logo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
