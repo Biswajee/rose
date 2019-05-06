@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4" xmlns:iot2="http://schemas.microsoft.com/appx/manifest/iot/windows10/2" IgnorableNamespaces="uap mp uap5 iot2 desktop4">
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4" xmlns:iot2="http://schemas.microsoft.com/appx/manifest/iot/windows10/2"
+         xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+         xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" 
+         IgnorableNamespaces="uap mp uap5 iot2 desktop4 com desktop">
   <Identity Name="ff1401d6-aa6c-4949-afce-f763186e25aa" Publisher="CN=Biswajit Roy" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="ff1401d6-aa6c-4949-afce-f763186e25aa" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
@@ -38,6 +41,19 @@
             <uap5:ExecutionAlias Alias="rose.exe" />
           </uap5:AppExecutionAlias>
         </uap5:Extension>
+        <!--Register COM CLSID LocalServer32 registry key-->
+        <com:Extension Category="windows.comServer">
+          <com:ComServer>
+            <com:ExeServer Executable="rose.exe" Arguments="-ToastActivated" DisplayName="Toast activator">
+              <com:Class Id="8AA90CAD-fed1-4c54-89db-9B7522D8AA92" DisplayName="Toast activator"/>
+            </com:ExeServer>
+          </com:ComServer>
+        </com:Extension>
+
+        <!--Specify which CLSID to activate when toast clicked-->
+        <desktop:Extension Category="windows.toastNotificationActivation">
+          <desktop:ToastNotificationActivation ToastActivatorCLSID="8AA90CAD-fed1-4c54-89db-9B7522D8AA92" />
+        </desktop:Extension>
       </Extensions>
     </Application>
   </Applications>

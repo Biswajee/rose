@@ -8,8 +8,15 @@
 #include <array>
 #include <winrt/Windows.UI.Notifications.h>
 #include <winrt/Windows.Data.Xml.Dom.h>
+#include "DesktopNotificationManagerCompat.h"
+#include <NotificationActivationCallback.h>
+#include <windows.ui.notifications.h>
 
+using namespace ABI::Windows::Data::Xml::Dom;
+using namespace ABI::Windows::UI::Notifications;
+using namespace Microsoft::WRL;
 using namespace winrt;
+using namespace DesktopNotificationManagerCompat;
 using winrt::Windows::UI::Notifications::ToastNotification;
 using winrt::Windows::UI::Notifications::ToastNotificationManager;
 using winrt::Windows::Data::Xml::Dom::XmlDocument;
@@ -18,7 +25,6 @@ using winrt::Windows::Data::Xml::Dom::XmlDocument;
 // in the package.appxmanifest to a value that you define. To edit this file
 // manually, open it with the XML Editor.
 
-	
 
 
 int main()
@@ -40,6 +46,9 @@ int main()
 		return 0;
 	}
 
+	// Register activator type
+	auto hr = DesktopNotificationManagerCompat::RegisterActivator();
+
 	if (__argc == 2) {
 		std::string command = __argv[1];
 		if (command.compare("--help") == 0) {
@@ -49,10 +58,10 @@ int main()
 		}
 		else {
 			system(__argv[1]);
-			XmlDocument doc;
-			doc.LoadXml(L"<toast>This is a test</toast>");
-			ToastNotification toast(doc);
-			ToastNotificationManager::CreateToastNotifier(L"appid").Show(toast);
+			winrt::Windows::Data::Xml::Dom::XmlDocument doc;
+			doc.LoadXml(L"<text>This is a test</text>");
+			winrt::Windows::UI::Notifications::ToastNotification toast(doc);
+			ToastNotificationManager::CreateToastNotifier(L"224467").Show(toast);
 		}
 	}
 	else
