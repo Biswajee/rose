@@ -2,21 +2,17 @@
 
 #include <cstdio>
 #include <iostream>
+#include <stdlib.h>
 #include <memory>
 #include <stdexcept>
 #include <string>
 #include <array>
 #include <winrt/Windows.UI.Notifications.h>
 #include <winrt/Windows.Data.Xml.Dom.h>
-#include "DesktopNotificationManagerCompat.h"
 #include <NotificationActivationCallback.h>
 #include <windows.ui.notifications.h>
 
-using namespace ABI::Windows::Data::Xml::Dom;
-using namespace ABI::Windows::UI::Notifications;
-using namespace Microsoft::WRL;
 using namespace winrt;
-using namespace DesktopNotificationManagerCompat;
 using winrt::Windows::UI::Notifications::ToastNotification;
 using winrt::Windows::UI::Notifications::ToastNotificationManager;
 using winrt::Windows::Data::Xml::Dom::XmlDocument;
@@ -25,10 +21,13 @@ using winrt::Windows::Data::Xml::Dom::XmlDocument;
 // in the package.appxmanifest to a value that you define. To edit this file
 // manually, open it with the XML Editor.
 
-
-
 int main()
 {
+	HANDLE  hConsole;
+	// colors text in Windows console mode
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	int col = 12;
+
 	std::string banner = R"(
     ____                   
    / __ \ ____   _____ ___ 
@@ -37,8 +36,16 @@ int main()
 /_/ |_| \____//____/ \___/ 
                            
 )";
+	// colors are 0=black 1=blue 2=green and so on to 15=white  
+	// colorattribute = foreground + background * 16
+	// to get red text on yellow use 4 + 14*16 = 228
+	// light red on yellow would be 12 + 14*16 = 236
 
+	FlushConsoleInputBuffer(hConsole);
+	SetConsoleTextAttribute(hConsole, col);
 	std::cout << banner << std::endl;
+	SetConsoleTextAttribute(hConsole, 15); //set back to black background and white text
+
     wprintf(L"rose :: console notification utility for windows\n");
 	if(__argc == 1) {
 		std::cout << "Too few arguments. Try passing a job with rose. For more command options, use: rose --help" << std::endl;
@@ -46,9 +53,7 @@ int main()
 		return 0;
 	}
 
-	// Register activator type
-	auto hr = DesktopNotificationManagerCompat::RegisterActivator();
-
+	
 	if (__argc == 2) {
 		std::string command = __argv[1];
 		if (command.compare("--help") == 0) {
@@ -61,7 +66,7 @@ int main()
 			winrt::Windows::Data::Xml::Dom::XmlDocument doc;
 			doc.LoadXml(L"<text>This is a test</text>");
 			winrt::Windows::UI::Notifications::ToastNotification toast(doc);
-			ToastNotificationManager::CreateToastNotifier(L"224467").Show(toast);
+			ToastNotificationManager::CreateToastNotifier().Show(toast);
 		}
 	}
 	else
