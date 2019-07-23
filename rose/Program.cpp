@@ -64,7 +64,7 @@ int main()
 		else {
 			system(__argv[1]);
 			winrt::Windows::Data::Xml::Dom::XmlDocument doc;
-			doc.LoadXml(L"<text>This is a test</text>");
+			doc.LoadXml(L"<toast><visual><binding><text>This is a test</text></binding></visual></toast>");
 			winrt::Windows::UI::Notifications::ToastNotification toast(doc);
 			ToastNotificationManager::CreateToastNotifier().Show(toast);
 		}
